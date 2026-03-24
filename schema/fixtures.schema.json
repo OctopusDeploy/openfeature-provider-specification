@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["response", "cases"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "slug", "isEnabled", "segments"],
+        "additionalProperties": true,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "segments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["key", "value"],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description", "configuration", "expected"],
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object",
+            "required": ["slug", "defaultValue"],
+            "additionalProperties": false,
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "context": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "defaultValue": {
+                "type": "boolean"
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": ["value"],
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "boolean"
+              },
+              "errorCode": {
+                "enum": ["PROVIDER_NOT_READY", "FLAG_NOT_FOUND", "PARSE_ERROR", "TYPE_MISMATCH", "TARGETING_KEY_MISSING", "INVALID_CONTEXT", "PROVIDER_FATAL", "GENERAL", null]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

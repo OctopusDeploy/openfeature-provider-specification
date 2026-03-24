@@ -1,0 +1,61 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "name": "My Feature A",
+      "slug": "feature-a",
+      "isEnabled": true,
+      "segments": []
+    },
+    {
+      "name": "My Feature B",
+      "slug": "feature-b",
+      "isEnabled": false,
+      "segments": []
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when evaluating a toggle that returns a value of true",
+      "configuration": {
+        "slug": "feature-a",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when evaluating a toggle that returns a value of false",
+      "configuration": {
+        "slug": "feature-b",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when evaluating a toggle that does not exist and default value is true",
+      "configuration": {
+        "slug": "feature-not-exist",
+        "defaultValue": true
+      },
+      "expected": {
+        "value": true,
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    },
+    {
+      "description": "disabled when evaluating a toggle that does not exist and default value is false",
+      "configuration": {
+        "slug": "feature-not-exist",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    }
+  ]
+}
