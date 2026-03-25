@@ -1,0 +1,58 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "feature-a",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "feature-b",
+      "isEnabled": true,
+      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "feature-c",
+      "isEnabled": true,
+      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
+      "segments": []
+    }
+  ],
+  "cases": [
+    {
+      "description": "returns error when evaluating a toggle that returns a value of true but missing evaluationKey",
+      "configuration": {
+        "slug": "feature-a",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "GENERAL"
+      }
+    },
+    {
+      "description": "returns error when evaluating a toggle that returns a value of true but missing segments",
+      "configuration": {
+        "slug": "feature-b",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "GENERAL"
+      }
+    },
+    {
+      "description": "returns error when evaluating a toggle that returns a value of true but missing clientRolloutPercentage",
+      "configuration": {
+        "slug": "feature-c",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "GENERAL"
+      }
+    }
+  ]
+}
