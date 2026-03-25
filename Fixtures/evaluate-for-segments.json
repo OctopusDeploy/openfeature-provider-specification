@@ -1,0 +1,107 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "name": "Test Feature-A",
+      "slug": "test-feature-a",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "rolloutPercentage": 30
+    },
+    {
+      "name": "Test Feature-B",
+      "slug": "test-feature-b",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [
+        {
+          "key": "license",
+          "value": "trial"
+        }
+      ],
+      "rolloutPercentage": 30
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when segment falls within rollout percentage and feature is not toggled for segments",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "hash-resolves-above-30"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when segment falls within rollout percentage and feature is not toggled for segments",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "hash-resolves-under-30"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when segment matches required segment and falls within rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "hash-resolves-above-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when segment does not match required segment and falls within rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "hash-resolves-under-30",
+          "license": "enterprise"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when segment does not match required segment and falls outside rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "hash-resolves-above-30",
+          "license": "enterprise"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when there is no targeting key and rollout percentage is less than 100",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": false,
+        "context": { }
+      },
+      "expected": {
+        "value": false
+      }
+    }
+  ]
+}
