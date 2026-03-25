@@ -2,15 +2,13 @@
   "$schema": "../schema/fixtures.schema.json",
   "response": [
     {
-      "name": "Test Feature-A",
       "slug": "test-feature-a",
       "evaluationKey": "evaluation-key",
       "isEnabled": true,
       "segments": [],
-      "rolloutPercentage": 30
+      "clientRolloutPercentage": 30
     },
     {
-      "name": "Test Feature-B",
       "slug": "test-feature-b",
       "evaluationKey": "evaluation-key",
       "isEnabled": true,
@@ -20,7 +18,14 @@
           "value": "trial"
         }
       ],
-      "rolloutPercentage": 30
+      "clientRolloutPercentage": 30
+    },
+    {
+      "slug": "test-feature-c",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 100
     }
   ],
   "cases": [
@@ -101,6 +106,17 @@
       },
       "expected": {
         "value": false
+      }
+    },
+    {
+      "description": "enabled when there is no targeting key and rollout percentage is equal to 100",
+      "configuration": {
+        "slug": "test-feature-c",
+        "defaultValue": false,
+        "context": { }
+      },
+      "expected": {
+        "value": true
       }
     }
   ]
