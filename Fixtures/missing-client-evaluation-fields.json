@@ -10,13 +10,13 @@
     {
       "slug": "feature-b",
       "isEnabled": true,
-      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
+      "evaluationKey": "evaluation-key",
       "clientRolloutPercentage": 100
     },
     {
       "slug": "feature-c",
       "isEnabled": true,
-      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
+      "evaluationKey": "evaluation-key",
       "segments": []
     }
   ],
