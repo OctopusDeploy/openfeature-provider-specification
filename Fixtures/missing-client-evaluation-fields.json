@@ -18,11 +18,15 @@
       "isEnabled": true,
       "evaluationKey": "evaluation-key",
       "segments": []
+    },
+    {
+      "slug": "feature-d",
+      "isEnabled": true
     }
   ],
   "cases": [
     {
-      "description": "returns error when evaluating a toggle that returns a value of true but missing evaluationKey",
+      "description": "returns error and defaultValue when evaluating a toggle that has isEnabled value of true but missing evaluationKey",
       "configuration": {
         "slug": "feature-a",
         "defaultValue": false
@@ -33,7 +37,7 @@
       }
     },
     {
-      "description": "returns error when evaluating a toggle that returns a value of true but missing segments",
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing segments",
       "configuration": {
         "slug": "feature-b",
         "defaultValue": false
@@ -44,13 +48,24 @@
       }
     },
     {
-      "description": "returns error when evaluating a toggle that returns a value of true but missing clientRolloutPercentage",
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing clientRolloutPercentage",
       "configuration": {
         "slug": "feature-c",
         "defaultValue": false
       },
       "expected": {
         "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing fields",
+      "configuration": {
+        "slug": "feature-d",
+        "defaultValue": true
+      },
+      "expected": {
+        "value": true,
         "errorCode": "PARSE_ERROR"
       }
     }
