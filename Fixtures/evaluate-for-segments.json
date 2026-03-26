@@ -30,12 +30,12 @@
   ],
   "cases": [
     {
-      "description": "enabled when segment falls within rollout percentage and feature is not toggled for segments",
+      "description": "enabled when segment falls within rollout percentage and feature is not configured with segments",
       "configuration": {
         "slug": "test-feature-a",
         "defaultValue": false,
         "context": {
-          "targetingKey": "hash-resolves-above-30"
+          "targetingKey": "below-30"
         }
       },
       "expected": {
@@ -43,12 +43,12 @@
       }
     },
     {
-      "description": "disabled when segment falls within rollout percentage and feature is not toggled for segments",
+      "description": "disabled when segment falls outside rollout percentage and feature is not configured with segments",
       "configuration": {
         "slug": "test-feature-a",
         "defaultValue": false,
         "context": {
-          "targetingKey": "hash-resolves-under-30"
+          "targetingKey": "over-30"
         }
       },
       "expected": {
@@ -61,7 +61,7 @@
         "slug": "test-feature-b",
         "defaultValue": false,
         "context": {
-          "targetingKey": "hash-resolves-above-30",
+          "targetingKey": "below-30",
           "license": "trial"
         }
       },
@@ -75,7 +75,7 @@
         "slug": "test-feature-b",
         "defaultValue": false,
         "context": {
-          "targetingKey": "hash-resolves-under-30",
+          "targetingKey": "below-30",
           "license": "enterprise"
         }
       },
@@ -89,7 +89,7 @@
         "slug": "test-feature-b",
         "defaultValue": false,
         "context": {
-          "targetingKey": "hash-resolves-above-30",
+          "targetingKey": "over-30",
           "license": "enterprise"
         }
       },
