@@ -24,8 +24,27 @@
       "slug": "test-feature-c",
       "evaluationKey": "evaluation-key",
       "isEnabled": true,
+      "segments": [
+        {
+          "key": "license",
+          "value": "trial"
+        }
+      ],
+      "clientRolloutPercentage": 0
+    },
+    {
+      "slug": "test-feature-d",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
       "segments": [],
       "clientRolloutPercentage": 100
+    },
+        {
+      "slug": "test-feature-e",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 0
     }
   ],
   "cases": [
@@ -46,7 +65,7 @@
       "description": "disabled when segment falls outside rollout percentage and feature is not configured with segments",
       "configuration": {
         "slug": "test-feature-a",
-        "defaultValue": false,
+        "defaultValue": true,
         "context": {
           "targetingKey": "over-30"
         }
@@ -73,7 +92,7 @@
       "description": "disabled when segment does not match required segment and falls within rollout percentage",
       "configuration": {
         "slug": "test-feature-b",
-        "defaultValue": false,
+        "defaultValue": true,
         "context": {
           "targetingKey": "below-30",
           "license": "enterprise"
@@ -84,10 +103,38 @@
       }
     },
     {
+      "description": "disabled when segment matches required segment but falls outside rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "over-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when segment matches required segment but rollout percentage is 0",
+      "configuration": {
+        "slug": "test-feature-c",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
       "description": "disabled when segment does not match required segment and falls outside rollout percentage",
       "configuration": {
         "slug": "test-feature-b",
-        "defaultValue": false,
+        "defaultValue": true,
         "context": {
           "targetingKey": "over-30",
           "license": "enterprise"
@@ -101,7 +148,7 @@
       "description": "disabled when there is no targeting key and rollout percentage is less than 100",
       "configuration": {
         "slug": "test-feature-a",
-        "defaultValue": false,
+        "defaultValue": true,
         "context": { }
       },
       "expected": {
@@ -111,12 +158,23 @@
     {
       "description": "enabled when there is no targeting key and rollout percentage is equal to 100",
       "configuration": {
-        "slug": "test-feature-c",
+        "slug": "test-feature-d",
         "defaultValue": false,
         "context": { }
       },
       "expected": {
         "value": true
+      }
+    },
+    {
+      "description": "disabled when there is no targeting key and rollout percentage is 0",
+      "configuration": {
+        "slug": "test-feature-e",
+        "defaultValue": true,
+        "context": { }
+      },
+      "expected": {
+        "value": false
       }
     }
   ]

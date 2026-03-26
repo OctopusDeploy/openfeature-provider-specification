@@ -31,6 +31,15 @@
       "cats": "dogs",
       "fish": 123,
       "pianos": { "nested": "value" }
+    },
+    {
+      "slug": "feature-with-extra-field-in-segment",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "segments": [
+        { "key": "license-type", "value": "free", "more": "data" }
+      ],
+      "clientRolloutPercentage": 100
     }
   ],
   "cases": [
@@ -74,6 +83,19 @@
       "configuration": {
         "slug": "feature-with-extra-fields",
         "defaultValue": false
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "should deserialize and evaluate correctly for toggle with extra field in segment",
+      "configuration": {
+        "slug": "feature-with-extra-field-in-segment",
+        "defaultValue": false,
+        "context": {
+          "license-type": "free"
+        }
       },
       "expected": {
         "value": true
