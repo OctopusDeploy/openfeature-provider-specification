@@ -39,7 +39,7 @@
       "segments": [],
       "clientRolloutPercentage": 100
     },
-        {
+    {
       "slug": "test-feature-e",
       "evaluationKey": "evaluation-key",
       "isEnabled": true,
