@@ -1,0 +1,181 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "test-feature-a",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 30
+    },
+    {
+      "slug": "test-feature-b",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [
+        {
+          "key": "license",
+          "value": "trial"
+        }
+      ],
+      "clientRolloutPercentage": 30
+    },
+    {
+      "slug": "test-feature-c",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [
+        {
+          "key": "license",
+          "value": "trial"
+        }
+      ],
+      "clientRolloutPercentage": 0
+    },
+    {
+      "slug": "test-feature-d",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "test-feature-e",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 0
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when segment falls within rollout percentage and feature is not configured with segments",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when segment falls outside rollout percentage and feature is not configured with segments",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "over-30"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when segment matches required segment and falls within rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when segment does not match required segment and falls within rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "enterprise"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when segment matches required segment but falls outside rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "over-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when segment matches required segment but rollout percentage is 0",
+      "configuration": {
+        "slug": "test-feature-c",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when segment does not match required segment and falls outside rollout percentage",
+      "configuration": {
+        "slug": "test-feature-b",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "over-30",
+          "license": "enterprise"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when there is no targeting key and rollout percentage is less than 100",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": true,
+        "context": { }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when there is no targeting key and rollout percentage is equal to 100",
+      "configuration": {
+        "slug": "test-feature-d",
+        "defaultValue": false,
+        "context": { }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when there is no targeting key and rollout percentage is 0",
+      "configuration": {
+        "slug": "test-feature-e",
+        "defaultValue": true,
+        "context": { }
+      },
+      "expected": {
+        "value": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "feature-a",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "feature-b",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "feature-c",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "segments": []
+    },
+    {
+      "slug": "feature-d",
+      "isEnabled": true
+    }
+  ],
+  "cases": [
+    {
+      "description": "returns error and defaultValue when evaluating a toggle that has isEnabled value of true but missing evaluationKey",
+      "configuration": {
+        "slug": "feature-a",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing segments",
+      "configuration": {
+        "slug": "feature-b",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing clientRolloutPercentage",
+      "configuration": {
+        "slug": "feature-c",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing evaluationKey, clientRolloutPercentage and segments",
+      "configuration": {
+        "slug": "feature-d",
+        "defaultValue": true
+      },
+      "expected": {
+        "value": true,
+        "errorCode": "PARSE_ERROR"
+      }
+    }
+  ]
+}

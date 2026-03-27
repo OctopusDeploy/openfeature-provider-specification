@@ -11,17 +11,17 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "slug", "isEnabled", "segments"],
+        "required": ["slug", "isEnabled"],
         "additionalProperties": true,
         "properties": {
-          "name": {
-            "type": "string"
-          },
           "slug": {
             "type": "string"
           },
           "isEnabled": {
             "type": "boolean"
+          },
+          "evaluationKey": {
+            "type": "string"
           },
           "segments": {
             "type": "array",
@@ -37,6 +37,11 @@
                 }
               }
             }
+          },
+          "clientRolloutPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
           }
         }
       }

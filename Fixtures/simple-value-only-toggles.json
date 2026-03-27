@@ -2,16 +2,15 @@
   "$schema": "../schema/fixtures.schema.json",
   "response": [
     {
-      "name": "My Feature A",
       "slug": "feature-a",
       "isEnabled": true,
-      "segments": []
+      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
+      "segments": [],
+      "clientRolloutPercentage": 100
     },
     {
-      "name": "My Feature B",
       "slug": "feature-b",
-      "isEnabled": false,
-      "segments": []
+      "isEnabled": false
     }
   ],
   "cases": [

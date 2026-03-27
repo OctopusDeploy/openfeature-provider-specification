@@ -1,0 +1,105 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "enabled-feature",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "segments": [],
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "disabled-feature",
+      "isEnabled": false
+    },
+    {
+      "slug": "enabled-feature-with-segments",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "segments": [
+        { "key": "license-type", "value": "free" },
+        { "key": "country", "value": "au" }
+      ],
+      "clientRolloutPercentage": 100
+    },
+    {
+      "slug": "feature-with-extra-fields",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "segments": [],
+      "clientRolloutPercentage": 100,
+      "cats": "dogs",
+      "fish": 123,
+      "pianos": { "nested": "value" }
+    },
+    {
+      "slug": "feature-with-extra-field-in-segment",
+      "isEnabled": true,
+      "evaluationKey": "evaluation-key",
+      "segments": [
+        { "key": "license-type", "value": "free", "more": "data" }
+      ],
+      "clientRolloutPercentage": 100
+    }
+  ],
+  "cases": [
+    {
+      "description": "should deserialize and evaluate correctly for enabled toggle",
+      "configuration": {
+        "slug": "enabled-feature",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "should deserialize and evaluate correctly for disabled toggle",
+      "configuration": {
+        "slug": "disabled-feature",
+        "defaultValue": true
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "should deserialize and evaluate correctly for enabled toggle with segments",
+      "configuration": {
+        "slug": "enabled-feature-with-segments",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "targeting-key",
+          "license-type": "free",
+          "country": "au"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "should deserialize and evaluate correctly for toggle with extra fields",
+      "configuration": {
+        "slug": "feature-with-extra-fields",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "should deserialize and evaluate correctly for toggle with extra field in segment",
+      "configuration": {
+        "slug": "feature-with-extra-field-in-segment",
+        "defaultValue": false,
+        "context": {
+          "license-type": "free"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    }
+  ]
+}
