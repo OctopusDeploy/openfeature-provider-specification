@@ -59,7 +59,7 @@
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing fields",
+      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing evaluationKey, clientRolloutPercentage and segments",
       "configuration": {
         "slug": "feature-d",
         "defaultValue": true
