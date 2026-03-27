@@ -1,0 +1,115 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "test-feature-a",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [
+        {
+          "key": "license",
+          "value": "trial"
+        },
+        {
+          "key": "region",
+          "value": "au"
+        },
+        {
+          "key": "region",
+          "value": "emea"
+        }
+      ],
+      "clientRolloutPercentage": 100
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when toggle requires multiple segments and all are matched",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when toggle requires multiple segments and some segments have wrong values",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "some-other-region"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when toggle requires multiple segments and some segments are missing",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when toggle requires multiple segments and all are matched but additional segments are present",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "au",
+          "other-key": "other-value"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when toggle requires multiple segments and all required segments are missing",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "below-30",
+          "some-other-key": "some-other-value"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "disabled when required segment contains null value",
+      "configuration": {
+        "slug": "test-feature-a",
+        "defaultValue": true,
+        "context": {
+          "license": "trial",
+          "region": null
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    }
+  ]
+}

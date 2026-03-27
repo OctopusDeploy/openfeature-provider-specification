@@ -55,6 +55,38 @@
         "value": false,
         "errorCode": "FLAG_NOT_FOUND"
       }
+    },
+    {
+      "description": "enabled when evaluating a toggle that does not exist and default value is true",
+      "configuration": {
+        "slug": "feature-not-exist",
+        "defaultValue": true
+      },
+      "expected": {
+        "value": true,
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    },
+    {
+      "description": "disabled when default value is false and slug is not a slug",
+      "configuration": {
+        "slug": "Feature A",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    },
+    {
+      "description": "evaluation is case insensitive for slug",
+      "configuration": {
+        "slug": "FEATURE-A",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": true
+      }
     }
   ]
 }
