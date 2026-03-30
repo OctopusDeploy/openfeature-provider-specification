@@ -1,0 +1,159 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "test-feature-0",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 0
+    },
+    {
+      "slug": "test-feature-10",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 10
+    },
+    {
+      "slug": "test-feature-20",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 20
+    },
+    {
+      "slug": "test-feature-50",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 50
+    },
+    {
+      "slug": "test-feature-100",
+      "evaluationKey": "evaluation-key",
+      "isEnabled": true,
+      "segments": [],
+      "clientRolloutPercentage": 100
+    }
+  ],
+  "cases": [
+    {
+      "description": "disabled when targeting string evaluates to 1 for feature with 0% rollout",
+      "configuration": {
+        "slug": "test-feature-0",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-sand"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when targeting string evaluates to 10 for feature with 10% rollout",
+      "configuration": {
+        "slug": "test-feature-10",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-leaf"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when targeting string evaluates to 11 for feature with 10% rollout",
+      "configuration": {
+        "slug": "test-feature-10",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "blue-road"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when targeting string evaluates to 20 for feature with 20% rollout",
+      "configuration": {
+        "slug": "test-feature-20",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-fox"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when targeting string evaluates to 21 for feature with 20% rollout",
+      "configuration": {
+        "slug": "test-feature-20",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "fast-hawk"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when targeting string evaluates to 50 for feature with 50% rollout",
+      "configuration": {
+        "slug": "test-feature-50",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "disabled when targeting string evaluates to 51 for feature with 50% rollout",
+      "configuration": {
+        "slug": "test-feature-50",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-rock"
+        }
+      },
+      "expected": {
+        "value": false
+      }
+    },
+    {
+      "description": "enabled when targeting string evaluates to 99 for feature with 100% rollout",
+      "configuration": {
+        "slug": "test-feature-100",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "dark-hawk"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    },
+    {
+      "description": "enabled when targeting string evaluates to 100 for feature with 100% rollout",
+      "configuration": {
+        "slug": "test-feature-100",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "blue-bell"
+        }
+      },
+      "expected": {
+        "value": true
+      }
+    }
+  ]
+}
