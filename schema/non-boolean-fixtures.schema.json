@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["response", "cases"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "response": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slug", "isEnabled"],
+        "additionalProperties": true,
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "isEnabled": {
+            "type": "boolean"
+          },
+          "evaluationKey": {
+            "type": "string"
+          },
+          "segments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["key", "value"],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "clientRolloutPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          }
+        }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description", "configuration", "expected"],
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "configuration": {
+            "type": "object",
+            "required": ["slug", "flagType"],
+            "additionalProperties": false,
+            "properties": {
+              "slug": {
+                "type": "string"
+              },
+              "flagType": {
+                "enum": ["string", "integer", "double", "object"]
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": ["value", "errorCode"],
+            "additionalProperties": false,
+            "properties": {
+              "value": {},
+              "errorCode": {
+                "enum": ["FLAG_NOT_FOUND", "TYPE_MISMATCH"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

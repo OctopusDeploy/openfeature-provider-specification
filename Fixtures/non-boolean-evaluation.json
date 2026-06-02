@@ -1,0 +1,80 @@
+{
+  "$schema": "../schema/non-boolean-fixtures.schema.json",
+  "response": [
+    {
+      "slug": "feature-a",
+      "isEnabled": true,
+      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
+      "segments": [],
+      "clientRolloutPercentage": 100
+    }
+  ],
+  "cases": [
+    {
+      "description": "returns TYPE_MISMATCH for string evaluation of existing toggle",
+      "configuration": {
+        "slug": "feature-a",
+        "flagType": "string"
+      },
+      "expected": {
+        "value": "default",
+        "errorCode": "TYPE_MISMATCH"
+      }
+    },
+    {
+      "description": "returns TYPE_MISMATCH for integer evaluation of existing toggle",
+      "configuration": {
+        "slug": "feature-a",
+        "flagType": "integer"
+      },
+      "expected": {
+        "value": 0,
+        "errorCode": "TYPE_MISMATCH"
+      }
+    },
+    {
+      "description": "returns TYPE_MISMATCH for double evaluation of existing toggle",
+      "configuration": {
+        "slug": "feature-a",
+        "flagType": "double"
+      },
+      "expected": {
+        "value": 0,
+        "errorCode": "TYPE_MISMATCH"
+      }
+    },
+    {
+      "description": "returns FLAG_NOT_FOUND for string evaluation of missing toggle",
+      "configuration": {
+        "slug": "feature-not-exist",
+        "flagType": "string"
+      },
+      "expected": {
+        "value": "default",
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    },
+    {
+      "description": "returns FLAG_NOT_FOUND for integer evaluation of missing toggle",
+      "configuration": {
+        "slug": "feature-not-exist",
+        "flagType": "integer"
+      },
+      "expected": {
+        "value": 0,
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    },
+    {
+      "description": "returns FLAG_NOT_FOUND for double evaluation of missing toggle",
+      "configuration": {
+        "slug": "feature-not-exist",
+        "flagType": "double"
+      },
+      "expected": {
+        "value": 0,
+        "errorCode": "FLAG_NOT_FOUND"
+      }
+    }
+  ]
+}
