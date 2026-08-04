@@ -4,37 +4,67 @@
     {
       "slug": "test-feature-0",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 0
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-10",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 10
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 10
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-20",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 20
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 20
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-50",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 50
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 50
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-100",
-      "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 100
+      "value": true,
+      "reason": "The flag is enabled for this environment."
     }
   ],
   "cases": [

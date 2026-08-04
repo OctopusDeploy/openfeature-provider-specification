@@ -3,14 +3,13 @@
   "response": [
     {
       "slug": "feature-a",
-      "isEnabled": true,
-      "evaluationKey": "e6d11af2-681a-40b5-9faf-b14f0f93bc79",
-      "segments": [],
-      "clientRolloutPercentage": 100
+      "value": true,
+      "reason": "The flag is enabled for this environment."
     },
     {
       "slug": "feature-b",
-      "isEnabled": false
+      "value": false,
+      "reason": "The flag is disabled for this environment."
     }
   ],
   "cases": [

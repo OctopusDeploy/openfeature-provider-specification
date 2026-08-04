@@ -4,47 +4,81 @@
     {
       "slug": "thirty-percent-rollout",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 30
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "thirty-percent-rollout-for-trial-license",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [
+      "rules": [
         {
-          "key": "license",
-          "value": "trial"
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
         }
-      ],
-      "clientRolloutPercentage": 30
+      ]
     },
     {
       "slug": "no-rollout-for-trial-license",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [
+      "rules": [
         {
-          "key": "license",
-          "value": "trial"
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
         }
-      ],
-      "clientRolloutPercentage": 0
+      ]
     },
     {
       "slug": "full-rollout",
-      "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 100
+      "value": true,
+      "reason": "The flag is enabled for this environment."
     },
     {
       "slug": "no-rollout",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 0
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            }
+          ]
+        }
+      ]
     }
   ],
   "cases": [

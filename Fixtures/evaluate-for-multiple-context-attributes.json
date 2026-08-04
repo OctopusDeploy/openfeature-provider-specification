@@ -4,22 +4,28 @@
     {
       "slug": "trial-license-in-au-or-emea",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [
+      "rules": [
         {
-          "key": "license",
-          "value": "trial"
-        },
-        {
-          "key": "region",
-          "value": "au"
-        },
-        {
-          "key": "region",
-          "value": "emea"
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "region",
+              "values": [
+                "au",
+                "emea"
+              ]
+            }
+          ]
         }
-      ],
-      "clientRolloutPercentage": 100
+      ]
     }
   ],
   "cases": [
