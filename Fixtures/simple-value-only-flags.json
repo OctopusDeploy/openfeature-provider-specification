@@ -15,7 +15,7 @@
   ],
   "cases": [
     {
-      "description": "enabled when evaluating a toggle that returns a value of true",
+      "description": "enabled when evaluating a flag that returns a value of true",
       "configuration": {
         "slug": "feature-a",
         "defaultValue": false
@@ -25,7 +25,7 @@
       }
     },
     {
-      "description": "disabled when evaluating a toggle that returns a value of false",
+      "description": "disabled when evaluating a flag that returns a value of false",
       "configuration": {
         "slug": "feature-b",
         "defaultValue": false
@@ -35,7 +35,7 @@
       }
     },
     {
-      "description": "enabled when evaluating a toggle that does not exist and default value is true",
+      "description": "enabled when evaluating a flag that does not exist and default value is true",
       "configuration": {
         "slug": "feature-not-exist",
         "defaultValue": true
@@ -46,7 +46,7 @@
       }
     },
     {
-      "description": "disabled when evaluating a toggle that does not exist and default value is false",
+      "description": "disabled when evaluating a flag that does not exist and default value is false",
       "configuration": {
         "slug": "feature-not-exist",
         "defaultValue": false
@@ -57,7 +57,7 @@
       }
     },
     {
-      "description": "enabled when evaluating a toggle that does not exist and default value is true",
+      "description": "enabled when evaluating a flag that does not exist and default value is true",
       "configuration": {
         "slug": "feature-not-exist",
         "defaultValue": true

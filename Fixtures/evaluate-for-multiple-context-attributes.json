@@ -2,7 +2,7 @@
   "$schema": "../schema/fixtures.schema.json",
   "response": [
     {
-      "slug": "test-feature-a",
+      "slug": "trial-license-in-au-or-emea",
       "evaluationKey": "evaluation-key",
       "isEnabled": true,
       "segments": [
@@ -24,9 +24,9 @@
   ],
   "cases": [
     {
-      "description": "enabled when toggle requires multiple segments and all are matched",
+      "description": "enabled when the flag requires multiple context attributes and all are matched",
       "configuration": {
-        "slug": "test-feature-a",
+        "slug": "trial-license-in-au-or-emea",
         "defaultValue": false,
         "context": {
           "targetingKey": "below-30",
@@ -39,9 +39,9 @@
       }
     },
     {
-      "description": "disabled when toggle requires multiple segments and some segments have wrong values",
+      "description": "disabled when the flag requires multiple context attributes and some have the wrong value",
       "configuration": {
-        "slug": "test-feature-a",
+        "slug": "trial-license-in-au-or-emea",
         "defaultValue": true,
         "context": {
           "targetingKey": "below-30",
@@ -54,9 +54,9 @@
       }
     },
     {
-      "description": "disabled when toggle requires multiple segments and some segments are missing",
+      "description": "disabled when the flag requires multiple context attributes and some are missing",
       "configuration": {
-        "slug": "test-feature-a",
+        "slug": "trial-license-in-au-or-emea",
         "defaultValue": true,
         "context": {
           "targetingKey": "below-30",
@@ -68,9 +68,9 @@
       }
     },
     {
-      "description": "enabled when toggle requires multiple segments and all are matched but additional segments are present",
+      "description": "enabled when the flag requires multiple context attributes and all are matched but additional attributes are present",
       "configuration": {
-        "slug": "test-feature-a",
+        "slug": "trial-license-in-au-or-emea",
         "defaultValue": false,
         "context": {
           "targetingKey": "below-30",
@@ -84,9 +84,9 @@
       }
     },
     {
-      "description": "disabled when toggle requires multiple segments and all required segments are missing",
+      "description": "disabled when the flag requires multiple context attributes and all of them are missing",
       "configuration": {
-        "slug": "test-feature-a",
+        "slug": "trial-license-in-au-or-emea",
         "defaultValue": true,
         "context": {
           "targetingKey": "below-30",
@@ -98,9 +98,9 @@
       }
     },
     {
-      "description": "disabled when required segment contains null value",
+      "description": "disabled when a required context attribute contains a null value",
       "configuration": {
-        "slug": "test-feature-a",
+        "slug": "trial-license-in-au-or-emea",
         "defaultValue": true,
         "context": {
           "license": "trial",

@@ -13,7 +13,7 @@
       "isEnabled": false
     },
     {
-      "slug": "enabled-feature-with-segments",
+      "slug": "enabled-feature-with-conditions",
       "isEnabled": true,
       "evaluationKey": "evaluation-key",
       "segments": [
@@ -33,7 +33,7 @@
       "pianos": { "nested": "value" }
     },
     {
-      "slug": "feature-with-extra-field-in-segment",
+      "slug": "feature-with-extra-field-in-condition",
       "isEnabled": true,
       "evaluationKey": "evaluation-key",
       "segments": [
@@ -44,7 +44,7 @@
   ],
   "cases": [
     {
-      "description": "should deserialize and evaluate correctly for enabled toggle",
+      "description": "should deserialize and evaluate correctly for an enabled flag",
       "configuration": {
         "slug": "enabled-feature",
         "defaultValue": false
@@ -54,7 +54,7 @@
       }
     },
     {
-      "description": "should deserialize and evaluate correctly for disabled toggle",
+      "description": "should deserialize and evaluate correctly for a disabled flag",
       "configuration": {
         "slug": "disabled-feature",
         "defaultValue": true
@@ -64,9 +64,9 @@
       }
     },
     {
-      "description": "should deserialize and evaluate correctly for enabled toggle with segments",
+      "description": "should deserialize and evaluate correctly for an enabled flag with context attribute conditions",
       "configuration": {
-        "slug": "enabled-feature-with-segments",
+        "slug": "enabled-feature-with-conditions",
         "defaultValue": false,
         "context": {
           "targetingKey": "targeting-key",
@@ -79,7 +79,7 @@
       }
     },
     {
-      "description": "should deserialize and evaluate correctly for toggle with extra fields",
+      "description": "should deserialize and evaluate correctly for a flag with extra fields",
       "configuration": {
         "slug": "feature-with-extra-fields",
         "defaultValue": false
@@ -89,9 +89,9 @@
       }
     },
     {
-      "description": "should deserialize and evaluate correctly for toggle with extra field in segment",
+      "description": "should deserialize and evaluate correctly for a flag with an extra field in a condition",
       "configuration": {
-        "slug": "feature-with-extra-field-in-segment",
+        "slug": "feature-with-extra-field-in-condition",
         "defaultValue": false,
         "context": {
           "license-type": "free"
