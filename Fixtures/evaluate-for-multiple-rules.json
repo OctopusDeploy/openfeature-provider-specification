@@ -1,0 +1,198 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "two-rules",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Internal users",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "email-domain",
+              "values": [
+                "octopus.com"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "two-rules-first-cannot-match",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Locked out",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            }
+          ]
+        },
+        {
+          "name": "Everyone",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 100
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "three-rules-none-match",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Internal users",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "email-domain",
+              "values": [
+                "octopus.com"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Gold tier",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "tier",
+              "values": [
+                "gold"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when only the first rule matches",
+      "configuration": {
+        "slug": "two-rules",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road",
+          "email-domain": "octopus.com",
+          "ring": "stable"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Internal users'."
+      }
+    },
+    {
+      "description": "enabled when only the second rule matches",
+      "configuration": {
+        "slug": "two-rules",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road",
+          "email-domain": "example.com",
+          "ring": "beta"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Beta ring'."
+      }
+    },
+    {
+      "description": "enabled and attributed to the first rule in the response when both rules match, because rule order decides the reason",
+      "configuration": {
+        "slug": "two-rules",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road",
+          "email-domain": "octopus.com",
+          "ring": "beta"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Internal users'."
+      }
+    },
+    {
+      "description": "disabled when neither rule matches",
+      "configuration": {
+        "slug": "two-rules",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road",
+          "email-domain": "example.com",
+          "ring": "stable"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when a later rule matches, so a rule that cannot match does not short-circuit the flag",
+      "configuration": {
+        "slug": "two-rules-first-cannot-match",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Everyone'."
+      }
+    },
+    {
+      "description": "disabled when none of three rules match",
+      "configuration": {
+        "slug": "three-rules-none-match",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road",
+          "email-domain": "example.com",
+          "ring": "stable",
+          "tier": "silver"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    }
+  ]
+}

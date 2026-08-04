@@ -1,0 +1,130 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "all-condition-types",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Gold tier outside the EU",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 50
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "tier",
+              "values": [
+                "gold"
+              ]
+            },
+            {
+              "type": "context-attribute-is-not-one-of",
+              "key": "region",
+              "values": [
+                "eu"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when every condition in the rule holds",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road",
+          "tier": "gold",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Gold tier outside the EU'."
+      }
+    },
+    {
+      "description": "disabled when the targeting key falls outside the rollout percentage",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-rock",
+          "tier": "gold",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the required context attribute has a different value",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road",
+          "tier": "silver",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the excluded context attribute has an excluded value",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road",
+          "tier": "gold",
+          "region": "eu"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the required context attribute is missing",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when the excluded context attribute is missing, because there is nothing to exclude",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road",
+          "tier": "gold"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Gold tier outside the EU'."
+      }
+    }
+  ]
+}

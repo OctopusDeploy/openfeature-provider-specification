@@ -1,0 +1,99 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "license-is-trial",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Trial licences",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "license-is-not-trial",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Everything but trial licences",
+          "conditions": [
+            {
+              "type": "context-attribute-is-not-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when the context attribute key differs only by case",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "License": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
+      "description": "enabled when the context attribute value differs only by case",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "license": "Trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
+      "description": "disabled when an excluded context attribute key differs only by case, so the exclusion still applies",
+      "configuration": {
+        "slug": "license-is-not-trial",
+        "defaultValue": true,
+        "context": {
+          "License": "trial"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when an excluded context attribute value differs only by case, so the exclusion still applies",
+      "configuration": {
+        "slug": "license-is-not-trial",
+        "defaultValue": true,
+        "context": {
+          "license": "Trial"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    }
+  ]
+}

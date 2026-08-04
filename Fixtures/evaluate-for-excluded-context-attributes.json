@@ -1,0 +1,112 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "everyone-outside-the-eu",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Outside the EU",
+          "conditions": [
+            {
+              "type": "context-attribute-is-not-one-of",
+              "key": "region",
+              "values": [
+                "eu"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "everyone-outside-the-eu-and-the-uk",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Outside the EU and the UK",
+          "conditions": [
+            {
+              "type": "context-attribute-is-not-one-of",
+              "key": "region",
+              "values": [
+                "eu",
+                "uk"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "description": "disabled when the context attribute has an excluded value",
+      "configuration": {
+        "slug": "everyone-outside-the-eu",
+        "defaultValue": true,
+        "context": {
+          "region": "eu"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when the context attribute has a value that is not excluded",
+      "configuration": {
+        "slug": "everyone-outside-the-eu",
+        "defaultValue": false,
+        "context": {
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Outside the EU'."
+      }
+    },
+    {
+      "description": "enabled when the context attribute is missing, because an absent attribute cannot be excluded",
+      "configuration": {
+        "slug": "everyone-outside-the-eu",
+        "defaultValue": false,
+        "context": { }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Outside the EU'."
+      }
+    },
+    {
+      "description": "disabled when the context attribute matches any value in a multi-value exclusion",
+      "configuration": {
+        "slug": "everyone-outside-the-eu-and-the-uk",
+        "defaultValue": true,
+        "context": {
+          "region": "uk"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when the context attribute matches no value in a multi-value exclusion",
+      "configuration": {
+        "slug": "everyone-outside-the-eu-and-the-uk",
+        "defaultValue": false,
+        "context": {
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Outside the EU and the UK'."
+      }
+    }
+  ]
+}

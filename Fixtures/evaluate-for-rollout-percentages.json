@@ -63,8 +63,18 @@
     },
     {
       "slug": "test-feature-100",
-      "value": true,
-      "reason": "The flag is enabled for this environment."
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Full rollout",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 100
+            }
+          ]
+        }
+      ]
     }
   ],
   "cases": [
@@ -169,7 +179,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Full rollout'."
       }
     },
     {
@@ -182,7 +193,20 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Full rollout'."
+      }
+    },
+    {
+      "description": "enabled when there is no targeting key and the rollout percentage is 100",
+      "configuration": {
+        "slug": "test-feature-100",
+        "defaultValue": false,
+        "context": { }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Full rollout'."
       }
     }
   ]

@@ -116,6 +116,21 @@
       "expected": {
         "value": false
       }
+    },
+    {
+      "description": "enabled with no targeting key at all, because a rule without a rollout condition does not need one",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "license": "trial",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
     }
   ]
 }
