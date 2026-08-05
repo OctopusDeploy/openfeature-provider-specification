@@ -26,7 +26,7 @@
   ],
   "cases": [
     {
-      "description": "returns error and defaultValue when evaluating a toggle that has isEnabled value of true but missing evaluationKey",
+      "description": "returns error and defaultValue when evaluating a flag that has isEnabled value of true but missing evaluationKey",
       "configuration": {
         "slug": "feature-a",
         "defaultValue": false
@@ -37,7 +37,7 @@
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing segments",
+      "description": "returns error and defaultValue when evaluating a flag has isEnabled value of true but missing segments",
       "configuration": {
         "slug": "feature-b",
         "defaultValue": false
@@ -48,7 +48,7 @@
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing clientRolloutPercentage",
+      "description": "returns error and defaultValue when evaluating a flag has isEnabled value of true but missing clientRolloutPercentage",
       "configuration": {
         "slug": "feature-c",
         "defaultValue": false
@@ -59,7 +59,7 @@
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a toggle has isEnabled value of true but missing evaluationKey, clientRolloutPercentage and segments",
+      "description": "returns error and defaultValue when evaluating a flag has isEnabled value of true but missing evaluationKey, clientRolloutPercentage and segments",
       "configuration": {
         "slug": "feature-d",
         "defaultValue": true
