@@ -62,8 +62,18 @@
     },
     {
       "slug": "full-rollout",
-      "value": true,
-      "reason": "The flag is enabled for this environment."
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 100
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "no-rollout",
