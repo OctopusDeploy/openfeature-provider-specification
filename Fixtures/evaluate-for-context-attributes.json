@@ -4,47 +4,91 @@
     {
       "slug": "thirty-percent-rollout",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 30
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "thirty-percent-rollout-for-trial-license",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [
+      "rules": [
         {
-          "key": "license",
-          "value": "trial"
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
         }
-      ],
-      "clientRolloutPercentage": 30
+      ]
     },
     {
       "slug": "no-rollout-for-trial-license",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [
+      "rules": [
         {
-          "key": "license",
-          "value": "trial"
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
         }
-      ],
-      "clientRolloutPercentage": 0
+      ]
     },
     {
       "slug": "full-rollout",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 100
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 100
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "no-rollout",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 0
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            }
+          ]
+        }
+      ]
     }
   ],
   "cases": [
@@ -58,7 +102,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -71,7 +116,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -85,7 +131,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -99,7 +146,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -113,7 +161,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -127,7 +176,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -141,7 +191,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -152,7 +203,8 @@
         "context": { }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -163,7 +215,8 @@
         "context": { }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -174,7 +227,8 @@
         "context": { }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     }
   ]

@@ -1,0 +1,50 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "thirty-percent-rollout",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Partial rollout",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "description": "disabled when the targeting key falls outside the rollout percentage",
+      "configuration": {
+        "slug": "thirty-percent-rollout",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled for the same targeting key in a different case, because the targeting key is hashed rather than compared and so lands in a different bucket",
+      "configuration": {
+        "slug": "thirty-percent-rollout",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "Red-Road"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Partial rollout'."
+      }
+    }
+  ]
+}

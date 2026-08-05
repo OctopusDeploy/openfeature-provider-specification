@@ -4,37 +4,77 @@
     {
       "slug": "test-feature-0",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 0
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 0
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-10",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 10
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 10
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-20",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 20
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 20
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-50",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 50
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 50
+            }
+          ]
+        }
+      ]
     },
     {
       "slug": "test-feature-100",
       "evaluationKey": "evaluation-key",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 100
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 100
+            }
+          ]
+        }
+      ]
     }
   ],
   "cases": [
@@ -48,7 +88,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -61,7 +102,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -74,7 +116,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -87,7 +130,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -100,7 +144,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -113,7 +158,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -126,7 +172,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -139,7 +186,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -152,7 +200,20 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "enabled when there is no targeting key and the rollout percentage is 100",
+      "configuration": {
+        "slug": "test-feature-100",
+        "defaultValue": false,
+        "context": { }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     }
   ]

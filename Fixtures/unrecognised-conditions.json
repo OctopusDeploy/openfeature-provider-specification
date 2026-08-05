@@ -1,0 +1,100 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "flag-with-unknown-condition-type",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Something newer than this library",
+          "conditions": [
+            {
+              "type": "not-a-real-condition",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-unknown-condition-in-one-of-two-rules",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Something newer than this library",
+          "conditions": [
+            {
+              "type": "not-a-real-condition",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "well-formed-flag",
+      "value": true,
+      "reason": "The flag is enabled for this environment."
+    }
+  ],
+  "cases": [
+    {
+      "description": "disabled without an error when a condition type is not recognised, because an unevaluable condition fails its rule",
+      "configuration": {
+        "slug": "flag-with-unknown-condition-type",
+        "defaultValue": true,
+        "context": {
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when an unrecognised condition type fails one rule but another rule matches",
+      "configuration": {
+        "slug": "flag-with-unknown-condition-in-one-of-two-rules",
+        "defaultValue": false,
+        "context": {
+          "license": "trial",
+          "ring": "beta"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Beta ring'."
+      }
+    },
+    {
+      "description": "evaluates the rest of the response, so an unrecognised condition does not fail the whole manifest",
+      "configuration": {
+        "slug": "well-formed-flag",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": true,
+        "reason": "The flag is enabled for this environment."
+      }
+    }
+  ]
+}

@@ -2,33 +2,165 @@
   "$schema": "../schema/fixtures.schema.json",
   "response": [
     {
-      "slug": "feature-a",
-      "isEnabled": true,
-      "segments": [],
-      "clientRolloutPercentage": 100
+      "slug": "flag-with-no-value-or-rules"
     },
     {
-      "slug": "feature-b",
-      "isEnabled": true,
+      "slug": "flag-with-both-value-and-rules",
+      "value": true,
+      "reason": "The flag is enabled for this environment.",
       "evaluationKey": "evaluation-key",
-      "clientRolloutPercentage": 100
+      "rules": [
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "slug": "feature-c",
-      "isEnabled": true,
+      "slug": "flag-with-rules-but-no-evaluation-key",
+      "rules": [
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-empty-rules",
       "evaluationKey": "evaluation-key",
-      "segments": []
+      "rules": []
     },
     {
-      "slug": "feature-d",
-      "isEnabled": true
+      "slug": "flag-with-rule-with-no-conditions",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Beta ring",
+          "conditions": []
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-percentage-condition-missing-percentage",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Partial rollout",
+          "conditions": [
+            {
+              "type": "percentage-by-context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-attribute-condition-missing-values",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Trial licences",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-percentage-out-of-range",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Partial rollout",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 101
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-condition-missing-type",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Trial licences",
+          "conditions": [
+            {
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-untyped-condition-in-one-of-two-rules",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Trial licences",
+          "conditions": [
+            {
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-value-but-no-reason",
+      "value": true
+    },
+    {
+      "slug": "well-formed-flag",
+      "value": true,
+      "reason": "The flag is enabled for this environment."
     }
   ],
   "cases": [
     {
-      "description": "returns error and defaultValue when evaluating a flag that has isEnabled value of true but missing evaluationKey",
+      "description": "returns an error and the default value when an evaluation has neither a value nor rules",
       "configuration": {
-        "slug": "feature-a",
+        "slug": "flag-with-no-value-or-rules",
         "defaultValue": false
       },
       "expected": {
@@ -37,10 +169,13 @@
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a flag has isEnabled value of true but missing segments",
+      "description": "returns an error and the default value when an evaluation has both a value and rules",
       "configuration": {
-        "slug": "feature-b",
-        "defaultValue": false
+        "slug": "flag-with-both-value-and-rules",
+        "defaultValue": false,
+        "context": {
+          "ring": "beta"
+        }
       },
       "expected": {
         "value": false,
@@ -48,25 +183,132 @@
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a flag has isEnabled value of true but missing clientRolloutPercentage",
+      "description": "returns an error and the default value when an evaluation has rules but no evaluation key",
       "configuration": {
-        "slug": "feature-c",
-        "defaultValue": false
+        "slug": "flag-with-rules-but-no-evaluation-key",
+        "defaultValue": true,
+        "context": {
+          "ring": "beta"
+        }
       },
       "expected": {
-        "value": false,
+        "value": true,
         "errorCode": "PARSE_ERROR"
       }
     },
     {
-      "description": "returns error and defaultValue when evaluating a flag has isEnabled value of true but missing evaluationKey, clientRolloutPercentage and segments",
+      "description": "returns an error and the default value when an evaluation defers to the client with no rules",
       "configuration": {
-        "slug": "feature-d",
+        "slug": "flag-with-empty-rules",
         "defaultValue": true
       },
       "expected": {
         "value": true,
         "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a rule has no conditions",
+      "configuration": {
+        "slug": "flag-with-rule-with-no-conditions",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a percentage condition has no percentage",
+      "configuration": {
+        "slug": "flag-with-percentage-condition-missing-percentage",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-sand"
+        }
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a context attribute condition has no values",
+      "configuration": {
+        "slug": "flag-with-attribute-condition-missing-values",
+        "defaultValue": true,
+        "context": {
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a percentage is above 100, rather than including everyone",
+      "configuration": {
+        "slug": "flag-with-percentage-out-of-range",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-sand"
+        }
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a condition has no type at all",
+      "configuration": {
+        "slug": "flag-with-condition-missing-type",
+        "defaultValue": true,
+        "context": {
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a condition has no type, even though another rule matches, because a malformed condition fails the whole evaluation rather than just its own rule",
+      "configuration": {
+        "slug": "flag-with-untyped-condition-in-one-of-two-rules",
+        "defaultValue": false,
+        "context": {
+          "license": "trial",
+          "ring": "beta"
+        }
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when an evaluation is resolved by the server but has no reason",
+      "configuration": {
+        "slug": "flag-with-value-but-no-reason",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "evaluates the rest of the response, so a malformed evaluation only fails its own flag",
+      "configuration": {
+        "slug": "well-formed-flag",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": true,
+        "reason": "The flag is enabled for this environment."
       }
     }
   ]
