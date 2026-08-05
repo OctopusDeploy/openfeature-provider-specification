@@ -10,9 +10,9 @@
           "conditions": [
             {
               "type": "context-attribute-is-one-of",
-              "key": "license",
+              "key": "License",
               "values": [
-                "trial"
+                "Trial"
               ]
             }
           ]
@@ -28,9 +28,9 @@
           "conditions": [
             {
               "type": "context-attribute-is-not-one-of",
-              "key": "license",
+              "key": "License",
               "values": [
-                "trial"
+                "Trial"
               ]
             }
           ]
@@ -45,7 +45,7 @@
         "slug": "license-is-trial",
         "defaultValue": false,
         "context": {
-          "License": "trial"
+          "license": "Trial"
         }
       },
       "expected": {
@@ -59,7 +59,35 @@
         "slug": "license-is-trial",
         "defaultValue": false,
         "context": {
-          "license": "Trial"
+          "License": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
+      "description": "enabled when the context attribute key and value are both lowercase and the condition is not",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
+      "description": "enabled when the context attribute key and value are both uppercase and the condition is not",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "LICENSE": "TRIAL"
         }
       },
       "expected": {
@@ -73,7 +101,7 @@
         "slug": "license-is-not-trial",
         "defaultValue": true,
         "context": {
-          "License": "trial"
+          "license": "Trial"
         }
       },
       "expected": {
@@ -87,7 +115,35 @@
         "slug": "license-is-not-trial",
         "defaultValue": true,
         "context": {
-          "license": "Trial"
+          "License": "trial"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when an excluded context attribute key and value are both lowercase and the condition is not",
+      "configuration": {
+        "slug": "license-is-not-trial",
+        "defaultValue": true,
+        "context": {
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when an excluded context attribute key and value are both uppercase and the condition is not",
+      "configuration": {
+        "slug": "license-is-not-trial",
+        "defaultValue": true,
+        "context": {
+          "LICENSE": "TRIAL"
         }
       },
       "expected": {

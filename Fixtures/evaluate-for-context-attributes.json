@@ -102,7 +102,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -115,7 +116,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -129,7 +131,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -143,7 +146,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -157,7 +161,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -171,7 +176,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -185,7 +191,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -196,7 +203,8 @@
         "context": { }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -207,7 +215,8 @@
         "context": { }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -218,7 +227,8 @@
         "context": { }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     }
   ]

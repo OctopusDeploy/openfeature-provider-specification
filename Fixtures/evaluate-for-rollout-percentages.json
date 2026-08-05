@@ -66,7 +66,7 @@
       "evaluationKey": "evaluation-key",
       "rules": [
         {
-          "name": "Full rollout",
+          "name": "Client-side targeting",
           "conditions": [
             {
               "type": "percentage-by-context",
@@ -88,7 +88,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -101,7 +102,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -114,7 +116,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -127,7 +130,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -140,7 +144,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -153,7 +158,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -166,7 +172,8 @@
         }
       },
       "expected": {
-        "value": false
+        "value": false,
+        "reason": "Did not match any rules."
       }
     },
     {
@@ -180,7 +187,7 @@
       },
       "expected": {
         "value": true,
-        "reason": "Matched rule 'Full rollout'."
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -194,7 +201,7 @@
       },
       "expected": {
         "value": true,
-        "reason": "Matched rule 'Full rollout'."
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -206,7 +213,7 @@
       },
       "expected": {
         "value": true,
-        "reason": "Matched rule 'Full rollout'."
+        "reason": "Matched rule 'Client-side targeting'."
       }
     }
   ]

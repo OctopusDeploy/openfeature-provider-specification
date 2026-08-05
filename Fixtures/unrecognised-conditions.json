@@ -20,23 +20,6 @@
       ]
     },
     {
-      "slug": "flag-with-condition-missing-type",
-      "evaluationKey": "evaluation-key",
-      "rules": [
-        {
-          "name": "Trial licences",
-          "conditions": [
-            {
-              "key": "license",
-              "values": [
-                "trial"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "flag-with-unknown-condition-in-one-of-two-rules",
       "evaluationKey": "evaluation-key",
       "rules": [
@@ -45,35 +28,6 @@
           "conditions": [
             {
               "type": "not-a-real-condition",
-              "key": "license",
-              "values": [
-                "trial"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "Beta ring",
-          "conditions": [
-            {
-              "type": "context-attribute-is-one-of",
-              "key": "ring",
-              "values": [
-                "beta"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "flag-with-untyped-condition-in-one-of-two-rules",
-      "evaluationKey": "evaluation-key",
-      "rules": [
-        {
-          "name": "Trial licences",
-          "conditions": [
-            {
               "key": "license",
               "values": [
                 "trial"
@@ -117,38 +71,9 @@
       }
     },
     {
-      "description": "disabled without an error when a condition has no type at all",
-      "configuration": {
-        "slug": "flag-with-condition-missing-type",
-        "defaultValue": true,
-        "context": {
-          "license": "trial"
-        }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
-      }
-    },
-    {
       "description": "enabled when an unrecognised condition type fails one rule but another rule matches",
       "configuration": {
         "slug": "flag-with-unknown-condition-in-one-of-two-rules",
-        "defaultValue": false,
-        "context": {
-          "license": "trial",
-          "ring": "beta"
-        }
-      },
-      "expected": {
-        "value": true,
-        "reason": "Matched rule 'Beta ring'."
-      }
-    },
-    {
-      "description": "enabled when an untyped condition fails one rule but another rule matches",
-      "configuration": {
-        "slug": "flag-with-untyped-condition-in-one-of-two-rules",
         "defaultValue": false,
         "context": {
           "license": "trial",
@@ -167,7 +92,8 @@
         "defaultValue": false
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "The flag is enabled for this environment."
       }
     }
   ]

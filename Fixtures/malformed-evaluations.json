@@ -101,6 +101,56 @@
       ]
     },
     {
+      "slug": "flag-with-condition-missing-type",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Trial licences",
+          "conditions": [
+            {
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-untyped-condition-in-one-of-two-rules",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Trial licences",
+          "conditions": [
+            {
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Beta ring",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "ring",
+              "values": [
+                "beta"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "flag-with-value-but-no-reason",
+      "value": true
+    },
+    {
       "slug": "well-formed-flag",
       "value": true,
       "reason": "The flag is enabled for this environment."
@@ -211,13 +261,54 @@
       }
     },
     {
+      "description": "returns an error and the default value when a condition has no type at all",
+      "configuration": {
+        "slug": "flag-with-condition-missing-type",
+        "defaultValue": true,
+        "context": {
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when a condition has no type, even though another rule matches, because a malformed condition fails the whole evaluation rather than just its own rule",
+      "configuration": {
+        "slug": "flag-with-untyped-condition-in-one-of-two-rules",
+        "defaultValue": false,
+        "context": {
+          "license": "trial",
+          "ring": "beta"
+        }
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
+      "description": "returns an error and the default value when an evaluation is resolved by the server but has no reason",
+      "configuration": {
+        "slug": "flag-with-value-but-no-reason",
+        "defaultValue": false
+      },
+      "expected": {
+        "value": false,
+        "errorCode": "PARSE_ERROR"
+      }
+    },
+    {
       "description": "evaluates the rest of the response, so a malformed evaluation only fails its own flag",
       "configuration": {
         "slug": "well-formed-flag",
         "defaultValue": false
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "The flag is enabled for this environment."
       }
     }
   ]

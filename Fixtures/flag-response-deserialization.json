@@ -75,7 +75,8 @@
         "defaultValue": false
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "The flag is enabled for this environment."
       }
     },
     {
@@ -88,7 +89,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -101,7 +103,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     },
     {
@@ -114,7 +117,8 @@
         }
       },
       "expected": {
-        "value": true
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     }
   ]
