@@ -96,6 +96,36 @@
       }
     },
     {
+      "description": "enabled when the context holds the same attribute key in two casings and the first one matches",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "License": "Trial",
+          "license": "Enterprise"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
+      "description": "enabled when the context holds the same attribute key in two casings and the second one matches",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "License": "Enterprise",
+          "license": "Trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
       "description": "disabled when an excluded context attribute key differs only by case, so the exclusion still applies",
       "configuration": {
         "slug": "license-is-not-trial",
@@ -144,6 +174,36 @@
         "defaultValue": true,
         "context": {
           "LICENSE": "TRIAL"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the context holds the same excluded attribute key in two casings and the first one matches",
+      "configuration": {
+        "slug": "license-is-not-trial",
+        "defaultValue": true,
+        "context": {
+          "License": "Trial",
+          "license": "Enterprise"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the context holds the same excluded attribute key in two casings and the second one matches",
+      "configuration": {
+        "slug": "license-is-not-trial",
+        "defaultValue": true,
+        "context": {
+          "License": "Enterprise",
+          "license": "Trial"
         }
       },
       "expected": {
