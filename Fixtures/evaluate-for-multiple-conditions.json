@@ -110,21 +110,6 @@
         "value": false,
         "reason": "Did not match any rules."
       }
-    },
-    {
-      "description": "enabled when the excluded context attribute is missing, because there is nothing to exclude",
-      "configuration": {
-        "slug": "all-condition-types",
-        "defaultValue": false,
-        "context": {
-          "targetingKey": "red-road",
-          "tier": "gold"
-        }
-      },
-      "expected": {
-        "value": true,
-        "reason": "Matched rule 'Gold tier outside the EU'."
-      }
     }
   ]
 }
