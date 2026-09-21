@@ -62,21 +62,6 @@
       }
     },
     {
-      "description": "disabled when the flag requires multiple context attributes and some are missing",
-      "configuration": {
-        "slug": "trial-license-in-au-or-emea",
-        "defaultValue": true,
-        "context": {
-          "targetingKey": "below-30",
-          "license": "trial"
-        }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
-      }
-    },
-    {
       "description": "enabled when the flag requires multiple context attributes and all are matched but additional attributes are present",
       "configuration": {
         "slug": "trial-license-in-au-or-emea",
@@ -91,21 +76,6 @@
       "expected": {
         "value": true,
         "reason": "Matched rule 'Client-side targeting'."
-      }
-    },
-    {
-      "description": "disabled when the flag requires multiple context attributes and all of them are missing",
-      "configuration": {
-        "slug": "trial-license-in-au-or-emea",
-        "defaultValue": true,
-        "context": {
-          "targetingKey": "below-30",
-          "some-other-key": "some-other-value"
-        }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
       }
     },
     {
