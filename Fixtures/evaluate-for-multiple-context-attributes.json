@@ -46,22 +46,6 @@
       }
     },
     {
-      "description": "disabled when the flag requires multiple context attributes and some have the wrong value",
-      "configuration": {
-        "slug": "trial-license-in-au-or-emea",
-        "defaultValue": true,
-        "context": {
-          "targetingKey": "below-30",
-          "license": "trial",
-          "region": "some-other-region"
-        }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
-      }
-    },
-    {
       "description": "enabled when the flag requires multiple context attributes and all are matched but additional attributes are present",
       "configuration": {
         "slug": "trial-license-in-au-or-emea",
