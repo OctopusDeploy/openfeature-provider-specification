@@ -6,4 +6,4 @@ Each fixture in `Fixtures/*.json` holds one simulated `GET api/feature-flags/eva
 
 ## Deliberately invalid fixtures
 
-`malformed-evaluations.json` and `unrecognised-conditions.json` describe responses no server should send, so they do not validate against the schema. Neither does the `"region": null` case in `evaluate-for-multiple-context-attributes.json`.
+`response-malformed-flags.json` and `response-unknown-condition-types.json` describe responses no server should send, so they do not validate against the schema. Neither does the `"region": null` case in `evaluate-for-multiple-context-attributes.json`.
