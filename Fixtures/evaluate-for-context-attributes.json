@@ -2,21 +2,6 @@
   "$schema": "../schema/fixtures.schema.json",
   "response": [
     {
-      "slug": "thirty-percent-rollout",
-      "evaluationKey": "evaluation-key",
-      "rules": [
-        {
-          "name": "Client-side targeting",
-          "conditions": [
-            {
-              "type": "percentage-by-context",
-              "percentage": 30
-            }
-          ]
-        }
-      ]
-    },
-    {
       "slug": "thirty-percent-rollout-for-trial-license",
       "evaluationKey": "evaluation-key",
       "rules": [
@@ -53,18 +38,6 @@
       "expected": {
         "value": true,
         "reason": "Matched rule 'Client-side targeting'."
-      }
-    },
-    {
-      "description": "disabled when there is no targeting key and rollout percentage is less than 100",
-      "configuration": {
-        "slug": "thirty-percent-rollout",
-        "defaultValue": true,
-        "context": { }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
       }
     }
   ]

@@ -258,6 +258,18 @@
         "value": true,
         "reason": "Matched rule 'Partial rollout'."
       }
+    },
+    {
+      "description": "disabled when there is no targeting key and rollout percentage is less than 100",
+      "configuration": {
+        "slug": "thirty-percent-rollout",
+        "defaultValue": true,
+        "context": { }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
     }
   ]
 }
