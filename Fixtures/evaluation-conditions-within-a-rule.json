@@ -29,6 +29,28 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "thirty-percent-rollout-for-trial-license",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "cases": [
@@ -109,6 +131,21 @@
       "expected": {
         "value": false,
         "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when the required context attribute matches and the caller falls within the rollout percentage",
+      "configuration": {
+        "slug": "thirty-percent-rollout-for-trial-license",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
       }
     }
   ]
