@@ -92,6 +92,34 @@
         "value": true,
         "reason": "Matched rule 'Trial licences'."
       }
+    },
+    {
+      "description": "disabled when the context does not hold the attribute the condition names",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": true,
+        "context": {
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the context holds a value the condition does not name",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": true,
+        "context": {
+          "license": "enterprise"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
     }
   ]
 }

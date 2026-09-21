@@ -113,22 +113,6 @@
       }
     },
     {
-      "description": "disabled when the required context attribute has a different value",
-      "configuration": {
-        "slug": "all-condition-types",
-        "defaultValue": true,
-        "context": {
-          "targetingKey": "red-road",
-          "tier": "silver",
-          "region": "au"
-        }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
-      }
-    },
-    {
       "description": "disabled when the excluded context attribute has an excluded value",
       "configuration": {
         "slug": "all-condition-types",
@@ -137,21 +121,6 @@
           "targetingKey": "red-road",
           "tier": "gold",
           "region": "eu"
-        }
-      },
-      "expected": {
-        "value": false,
-        "reason": "Did not match any rules."
-      }
-    },
-    {
-      "description": "disabled when the required context attribute is missing",
-      "configuration": {
-        "slug": "all-condition-types",
-        "defaultValue": true,
-        "context": {
-          "targetingKey": "red-road",
-          "region": "au"
         }
       },
       "expected": {
