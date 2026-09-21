@@ -51,6 +51,32 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "trial-license-in-au-or-emea",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "region",
+              "values": [
+                "au",
+                "emea"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "cases": [
@@ -141,6 +167,69 @@
         "context": {
           "targetingKey": "below-30",
           "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "enabled when the flag requires multiple context attributes and all are matched",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "enabled when the flag requires multiple context attributes and all are matched but additional attributes are present",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "au",
+          "other-key": "other-value"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "disabled when a required context attribute contains a null value",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": true,
+        "context": {
+          "license": "trial",
+          "region": null
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled with no targeting key at all, because a rule without a rollout condition does not need one",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "license": "trial",
+          "region": "au"
         }
       },
       "expected": {
