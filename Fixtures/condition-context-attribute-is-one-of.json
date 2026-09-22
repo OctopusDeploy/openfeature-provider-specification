@@ -64,6 +64,20 @@
       }
     },
     {
+      "description": "enabled when the context attribute key and value are already uppercase, so only the condition side is folded",
+      "configuration": {
+        "slug": "license-is-trial",
+        "defaultValue": false,
+        "context": {
+          "LICENSE": "TRIAL"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Trial licences'."
+      }
+    },
+    {
       "description": "enabled when the context holds the same attribute key in two casings and the first one matches",
       "configuration": {
         "slug": "license-is-trial",
