@@ -1,0 +1,210 @@
+{
+  "$schema": "../schema/fixtures.schema.json",
+  "response": [
+    {
+      "slug": "all-condition-types",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Gold tier outside the EU",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 50
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "tier",
+              "values": [
+                "gold"
+              ]
+            },
+            {
+              "type": "context-attribute-is-not-one-of",
+              "key": "region",
+              "values": [
+                "eu"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "thirty-percent-rollout-for-trial-license",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "percentage-by-context",
+              "percentage": 30
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "trial-license-in-au-or-emea",
+      "evaluationKey": "evaluation-key",
+      "rules": [
+        {
+          "name": "Client-side targeting",
+          "conditions": [
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "license",
+              "values": [
+                "trial"
+              ]
+            },
+            {
+              "type": "context-attribute-is-one-of",
+              "key": "region",
+              "values": [
+                "au",
+                "emea"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "description": "enabled when every condition in the rule holds",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "red-road",
+          "tier": "gold",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Gold tier outside the EU'."
+      }
+    },
+    {
+      "description": "disabled when the targeting key falls outside the rollout percentage",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-rock",
+          "tier": "gold",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "disabled when the excluded context attribute has an excluded value",
+      "configuration": {
+        "slug": "all-condition-types",
+        "defaultValue": true,
+        "context": {
+          "targetingKey": "red-road",
+          "tier": "gold",
+          "region": "eu"
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled when the required context attribute matches and the caller falls within the rollout percentage",
+      "configuration": {
+        "slug": "thirty-percent-rollout-for-trial-license",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "enabled when the flag requires multiple context attributes and all are matched",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "enabled when the flag requires multiple context attributes and all are matched but additional attributes are present",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "targetingKey": "below-30",
+          "license": "trial",
+          "region": "au",
+          "other-key": "other-value"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    },
+    {
+      "description": "disabled when a required context attribute contains a null value",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": true,
+        "context": {
+          "license": "trial",
+          "region": null
+        }
+      },
+      "expected": {
+        "value": false,
+        "reason": "Did not match any rules."
+      }
+    },
+    {
+      "description": "enabled with no targeting key at all, because a rule without a rollout condition does not need one",
+      "configuration": {
+        "slug": "trial-license-in-au-or-emea",
+        "defaultValue": false,
+        "context": {
+          "license": "trial",
+          "region": "au"
+        }
+      },
+      "expected": {
+        "value": true,
+        "reason": "Matched rule 'Client-side targeting'."
+      }
+    }
+  ]
+}
