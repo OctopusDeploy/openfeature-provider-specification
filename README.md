@@ -4,6 +4,8 @@ Behavioural specifications for all Octopus Deploy OpenFeature providers, and sha
 
 Each fixture in `Fixtures/*.json` holds one simulated `GET api/feature-flags/evaluations/v4` response and the cases evaluated against it. `schema/fixtures.schema.json` describes the format.
 
+The context key `targetingKey` is the OpenFeature targeting key, not a custom attribute. An `expected` with no `errorCode` means the evaluation returns no error.
+
 ## Fixture layout
 
 The filename prefix says what a fixture covers. Put a new case in the file that matches the behaviour you are testing.
